@@ -64,8 +64,7 @@ if avvia_btn:
                     st.error(f"❌ Errore FABRIC: {err}")
                 else:
                     righe_mancanti = confronta_file(righe_prod_set, righe_prod_lista, righe_fabric_set)
-                    output_content = "
-".join(righe_mancanti)
+                    output_content = "".join(righe_mancanti)
                     
                     st.markdown("---")
                     col1, col2, col3, col4 = st.columns(4)
