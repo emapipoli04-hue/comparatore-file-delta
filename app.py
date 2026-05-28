@@ -16,8 +16,7 @@ def leggi_file(file_obj):
     try:
         stringio = StringIO(file_obj.getvalue().decode("utf-8-sig"))
         for riga in stringio:
-            riga_pulita = riga.rstrip('\r
-')
+            riga_pulita = riga.rstrip('\r')
             if riga_pulita.strip():
                 righe_set.add(riga_pulita)
                 righe_lista.append(riga_pulita)
@@ -35,16 +34,14 @@ with st.sidebar:
 
 col1, col2 = st.columns(2)
 with col1:
-    st.markdown("
-### 📁 File PROD")
+    st.markdown("### 📁 File PROD")
 
     file_prod = st.file_uploader("Seleziona PROD", type=["txt"], key="prod")
     if file_prod:
         st.success(f"✅ {file_prod.name}")
 
 with col2:
-    st.markdown("
-### 📁 File FABRIC")
+    st.markdown("### 📁 File FABRIC")
 
     file_fabric = st.file_uploader("Seleziona FABRIC", type=["txt"], key="fabric")
     if file_fabric:
