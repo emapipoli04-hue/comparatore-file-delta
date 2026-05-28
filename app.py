@@ -75,8 +75,7 @@ if avvia_btn:
                     
                     if righe_mancanti:
                         st.success(f"✅ Trovate {len(righe_mancanti)} righe mancanti!")
-                        st.markdown(f"
-### 📋 Primi {min(num_esempi, len(righe_mancanti))} esempi")
+                        st.markdown(f"### 📋 Primi {min(num_esempi, len(righe_mancanti))} esempi")
 
                         for i, riga in enumerate(righe_mancanti[:num_esempi]):
                             with st.expander(f"Riga {i+1}: {riga[:60]}..."):
