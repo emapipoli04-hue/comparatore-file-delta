@@ -2,14 +2,12 @@ import streamlit as st
 
 st.set_page_config(page_title="Query Generator - Viste", page_icon="🔍", layout="wide")
 
-st.markdown("""
-    <div style="text-align: center; padding: 2rem 0; background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); border-radius: 0.5rem; color: white; margin-bottom: 2rem;">
+st.markdown("""<div style="text-align: center; padding: 2rem 0; background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); border-radius: 0.5rem; color: white; margin-bottom: 2rem;">
         <h1 style="margin: 0; color: white;">🔍 Query Generator - Viste</h1>
         <p style="margin: 0.5rem 0 0 0; font-size: 1.1rem;">Genera query COUNT(*) per monitorare le viste</p>
     </div>
 """, unsafe_allow_html=True)
 
-# Configurazione stream e viste
 STREAMS = {
     "Metalli Pesanti": [
         "L2.VDD_DM_METALLI_PESANTI_PERC_FORMULA",
@@ -19,9 +17,10 @@ STREAMS = {
     ]
 }
 
-# Sidebar
 with st.sidebar:
-    st.markdown("### 📋 Configurazione")
+    st.markdown("
+### 📋 Configurazione")
+
     stream_selezionato = st.selectbox(
         "Seleziona Stream",
         list(STREAMS.keys()),
@@ -29,50 +28,55 @@ with st.sidebar:
     )
     
     st.markdown("---")
-    st.markdown("### 📊 Informazioni")
+    st.markdown("
+### 📊 Informazioni")
+
     st.info(f"""
     **Stream selezionato:** {stream_selezionato}
     
     **Viste:** {len(STREAMS[stream_selezionato])}
     """)
 
-# Main content
-st.markdown("### 📁 Viste da monitorare")
+st.markdown("
+### 📁 Viste da monitorare")
 
 viste = STREAMS[stream_selezionato]
 
-# Mostra le viste
 cols = st.columns(2)
 for i, vista in enumerate(viste):
     with cols[i % 2]:
         st.code(vista, language="sql")
 
-# Pulsante genera query
 st.markdown("---")
 
 if st.button("🔧 Genera Query COUNT(*)", use_container_width=True, type="primary"):
-    st.markdown("### 📝 Query SQL - Copia e incolla in SSMS")
+    st.markdown("
+### 📝 Query SQL - Copia e incolla in SSMS")
+
     
-    # Genera la query con UNION
-    query = "-- Query COUNT(*) per monitorare le viste\n"
-    query += f"-- Stream: {stream_selezionato}\n"
-    query += "-- Esegui questa query in SSMS\n\n"
+    query = "-- Query COUNT(*) per monitorare le viste
+"
+    query += f"-- Stream: {stream_selezionato}
+"
+    query += "-- Esegui questa query in SSMS
+
+"
     
     query_parts = []
     for vista in viste:
         query_parts.append(f"SELECT '{vista}' AS Vista, COUNT(*) AS NumRighe FROM {vista}")
     
-    query += " UNION ALL\n".join(query_parts) + ";"
+    query += " UNION ALL
+".join(query_parts) + ";"
     
-    # Mostra la query in un box copiabile
     st.code(query, language="sql")
     
-    # Pulsante copia
     st.write("**👇 Copia la query sopra e incollala in SSMS**")
     
-    # Statistiche
     st.markdown("---")
-    st.markdown("### 📊 Statistiche")
+    st.markdown("
+### 📊 Statistiche")
+
     col1, col2, col3 = st.columns(3)
     col1.metric("Stream", stream_selezionato)
     col2.metric("Viste", len(viste))
